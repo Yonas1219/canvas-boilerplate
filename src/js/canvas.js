@@ -245,7 +245,7 @@ function init() {
   scrollOffset = 0;
 }
 let score = 0;
-let highScore = 0;
+// let highScore = 0;
 function drawScore(){
 if(player.velocity.y !== 0 && keys.right.pressed){
   score += 1;
