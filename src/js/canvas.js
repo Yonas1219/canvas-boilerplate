@@ -317,44 +317,6 @@ function animate() {
   player.update();
 
 
-// keys.play.pressed = false;
-//   function resume (){
-//     if(keys.play.pressed){
-//       c.fillStyle = "white";
-//       c.font = "20px Verdana";
-//       c.fillText("resumed", canvas.width-105, 100 )
-//     console.log("in the play")
-
-//     player.velocity.x = player.speed;
-//     if (keys.right.pressed  && player.position.x < 400) {
-//       player.velocity.x = player.speed;
-//     } else if (
-//        (keys.left.pressed && player.position.x > 100) ||
-//        (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
-//        ) {
-//          player.velocity.x = -player.speed;
-//        } else {
-//          player.velocity.x = 0;
-//        if (keys.right.pressed) {
-//          scrollOffset += player.speed;
-//          platforms.forEach((platform) => {
-//            platform.position.x -= player.speed;
-//          });
-//          genericObjects.forEach((genericObject) => {
-//            genericObject.position.x -= player.speed * 0.66;
-//          });
-//        } else if (keys.left.pressed && scrollOffset > 0) {
-//          scrollOffset -= player.speed;
-//          platforms.forEach((platform) => {
-//            platform.position.x += player.speed;
-//          });
-//          genericObjects.forEach((genericObject) => {
-//            genericObject.position.x += player.speed * 0.66;
-//          });
-//           }
-//         }
-//       }
-//   }
   
       if(keys.pause.pressed){
         player.velocity.x = 0;
