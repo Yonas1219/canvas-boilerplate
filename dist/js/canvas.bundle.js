@@ -286,7 +286,7 @@ var Player = /*#__PURE__*/function () {
       this.position.y += this.velocity.y;
       if (this.position.y + this.height + this.velocity.y <= canvas.height) this.velocity.y += gravity;
 
-      if (scrollOffset > platformImage.width * 5 + 300 - 2) {
+      if (scrollOffset > platformImage.width * 10 + 1150 - 2) {
         restartButton.style.display = "block";
       } else {
         restartButton.style.display = "none"; // score()
@@ -365,13 +365,7 @@ var GenericObject = /*#__PURE__*/function () {
   }]);
 
   return GenericObject;
-}(); //////////////////////////////////////////////// play sound
-// function playSound() {
-//     soundEffect.currentTime = 0;
-//     soundEffect.volume = 0.5;
-//     soundEffect.play();
-// }
-
+}();
 
 function createImage(imageSrc) {
   var image = new Image();
@@ -391,6 +385,12 @@ var keys = {
   },
   left: {
     pressed: false
+  },
+  pause: {
+    pressed: false
+  },
+  play: {
+    pressed: false
   }
 };
 var scrollOffset = 0;
@@ -399,7 +399,7 @@ function init() {
   platformImage = createImage(_image_platform_png__WEBPACK_IMPORTED_MODULE_0__["default"]);
   player = new Player();
   platforms = [new Platform({
-    x: platformImage.width * 4 + 300 - 2 + platformImage.width - platformSmallTallImage.width,
+    x: platformImage.width * 4 + 500 - 2 + platformImage.width - platformSmallTallImage.width,
     y: 270,
     image: createImage(_image_platformSmallTall_png__WEBPACK_IMPORTED_MODULE_3__["default"])
   }), new Platform({
@@ -419,11 +419,31 @@ function init() {
     y: 470,
     image: platformImage
   }), new Platform({
-    x: platformImage.width * 4 + 300 - 2,
+    x: platformImage.width * 4 + 12 - 5 + platformImage.width - platformSmallTallImage.width,
+    y: 470,
+    image: createImage(_image_platformSmallTall_png__WEBPACK_IMPORTED_MODULE_3__["default"])
+  }), new Platform({
+    x: platformImage.width * 5 + 700 - 2,
     y: 470,
     image: platformImage
   }), new Platform({
-    x: platformImage.width * 5 + 700 - 2,
+    x: platformImage.width * 6 + 900 + 200,
+    y: 470,
+    image: platformImage
+  }), new Platform({
+    x: platformImage.width * 7 + 800 - 2,
+    y: 470,
+    image: platformImage
+  }), new Platform({
+    x: platformImage.width * 8 + 900 - 2 + platformImage.width - platformSmallTallImage.width,
+    y: 350,
+    image: createImage(_image_platformSmallTall_png__WEBPACK_IMPORTED_MODULE_3__["default"])
+  }), new Platform({
+    x: platformImage.width * 9 + 900 - 2 + platformImage.width - platformSmallTallImage.width,
+    y: 270,
+    image: createImage(_image_platformSmallTall_png__WEBPACK_IMPORTED_MODULE_3__["default"])
+  }), new Platform({
+    x: platformImage.width * 10 + 1200 - 2,
     y: 470,
     image: platformImage
   })];
@@ -437,7 +457,8 @@ function init() {
     image: createImage(_image_hills_png__WEBPACK_IMPORTED_MODULE_1__["default"])
   })];
   scrollOffset = 0;
-}
+} // score handling
+
 
 var score = 0; // let highScore = 0;
 
@@ -453,7 +474,8 @@ function drawScore() {
     c.font = "20px Verdana";
     c.fillText("score:" + score, canvas.width - 105, 20);
   }
-} // drawScore();
+} // pause play handling
+// drawScore();
 
 
 function animate() {
@@ -466,31 +488,107 @@ function animate() {
   platforms.forEach(function (platform) {
     platform.draw();
   });
-  player.update();
+  player.update(); // keys.play.pressed = false;
+  //   function resume (){
+  //     if(keys.play.pressed){
+  //       c.fillStyle = "white";
+  //       c.font = "20px Verdana";
+  //       c.fillText("resumed", canvas.width-105, 100 )
+  //     console.log("in the play")
+  //     player.velocity.x = player.speed;
+  //     if (keys.right.pressed  && player.position.x < 400) {
+  //       player.velocity.x = player.speed;
+  //     } else if (
+  //        (keys.left.pressed && player.position.x > 100) ||
+  //        (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
+  //        ) {
+  //          player.velocity.x = -player.speed;
+  //        } else {
+  //          player.velocity.x = 0;
+  //        if (keys.right.pressed) {
+  //          scrollOffset += player.speed;
+  //          platforms.forEach((platform) => {
+  //            platform.position.x -= player.speed;
+  //          });
+  //          genericObjects.forEach((genericObject) => {
+  //            genericObject.position.x -= player.speed * 0.66;
+  //          });
+  //        } else if (keys.left.pressed && scrollOffset > 0) {
+  //          scrollOffset -= player.speed;
+  //          platforms.forEach((platform) => {
+  //            platform.position.x += player.speed;
+  //          });
+  //          genericObjects.forEach((genericObject) => {
+  //            genericObject.position.x += player.speed * 0.66;
+  //          });
+  //           }
+  //         }
+  //       }
+  //   }
 
-  if (keys.right.pressed && player.position.x < 400) {
-    player.velocity.x = player.speed;
-  } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
-    player.velocity.x = -player.speed;
-  } else {
+  if (keys.pause.pressed) {
     player.velocity.x = 0;
+    c.fillStyle = "white";
+    c.font = "20px Verdana";
+    c.fillText("paused", canvas.width - 105, 100);
+    if (keys.play.pressed) keys.pause.pressed = false;
+  } else if (keys.play.pressed) {
+    c.fillStyle = "white";
+    c.font = "20px Verdana";
+    c.fillText("resumed", canvas.width - 105, 100);
+    console.log("in the play");
+    player.velocity.x = player.speed;
 
-    if (keys.right.pressed) {
-      scrollOffset += player.speed;
-      platforms.forEach(function (platform) {
-        platform.position.x -= player.speed;
-      });
-      genericObjects.forEach(function (genericObject) {
-        genericObject.position.x -= player.speed * 0.66;
-      });
-    } else if (keys.left.pressed && scrollOffset > 0) {
-      scrollOffset -= player.speed;
-      platforms.forEach(function (platform) {
-        platform.position.x += player.speed;
-      });
-      genericObjects.forEach(function (genericObject) {
-        genericObject.position.x += player.speed * 0.66;
-      });
+    if (keys.right.pressed && player.position.x < 400) {
+      player.velocity.x = player.speed;
+    } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
+      player.velocity.x = -player.speed;
+    } else {
+      player.velocity.x = 0;
+
+      if (keys.right.pressed) {
+        scrollOffset += player.speed;
+        platforms.forEach(function (platform) {
+          platform.position.x -= player.speed;
+        });
+        genericObjects.forEach(function (genericObject) {
+          genericObject.position.x -= player.speed * 0.66;
+        });
+      } else if (keys.left.pressed && scrollOffset > 0) {
+        scrollOffset -= player.speed;
+        platforms.forEach(function (platform) {
+          platform.position.x += player.speed;
+        });
+        genericObjects.forEach(function (genericObject) {
+          genericObject.position.x += player.speed * 0.66;
+        });
+      }
+    }
+  } else {
+    if (keys.right.pressed && player.position.x < 400) {
+      player.velocity.x = player.speed;
+    } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
+      player.velocity.x = -player.speed;
+    } else {
+      player.velocity.x = 0;
+
+      if (keys.right.pressed) {
+        scrollOffset += player.speed;
+        platforms.forEach(function (platform) {
+          platform.position.x -= player.speed;
+        });
+        genericObjects.forEach(function (genericObject) {
+          genericObject.position.x -= player.speed * 0.66;
+        });
+      } else if (keys.left.pressed && scrollOffset > 0) {
+        scrollOffset -= player.speed;
+        platforms.forEach(function (platform) {
+          platform.position.x += player.speed;
+        });
+        genericObjects.forEach(function (genericObject) {
+          genericObject.position.x += player.speed * 0.66;
+        });
+      }
     }
   } // platform collision detection
 
@@ -608,7 +706,7 @@ function animate() {
   } ////////////////////win condition
 
 
-  if (scrollOffset > platformImage.width * 5 + 300 - 2) {
+  if (scrollOffset > platformImage.width * 10 + 1150 - 2) {
     winCelebration();
   }
 
@@ -620,7 +718,7 @@ function animate() {
     }, 3000);
     c.fillStyle = "white";
     c.font = "40px Arial";
-    c.fillText(" you lose!", 300, 300);
+    c.fillText("\" you lose!\" score ".concat(score), 300, 300);
     init();
   }
 }
@@ -651,6 +749,18 @@ addEventListener("keydown", function (_ref3) {
       console.log("up");
       player.velocity.y -= 25;
       break;
+
+    case 32:
+      console.log("paused");
+      keys.pause.pressed = true; //  pause();
+
+      break;
+
+    case 80:
+      console.log("play");
+      keys.play.pressed = true; //  play();
+
+      break;
   }
 });
 addEventListener("keyup", function (_ref4) {
@@ -673,6 +783,19 @@ addEventListener("keyup", function (_ref4) {
 
     case 87:
       console.log("up");
+      break;
+
+    case 32:
+      console.log("paused");
+      keys.right.pressed = false; // pause();
+      // player.velocity.x === 0;
+
+      break;
+
+    case 80:
+      console.log("play");
+      keys.play.pressed = false; //  play();
+
       break;
   } // console.log(keys.right.pressed)
 
