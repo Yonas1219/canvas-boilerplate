@@ -91,8 +91,9 @@ class Player {
     if (this.position.y + this.height + this.velocity.y <= canvas.height)
       this.velocity.y += gravity;
    
-    if (scrollOffset >  platformImage.width * 10 + 1150 -2) {
+    if (scrollOffset >  platformImage.width * 10 + 1050 -2) {
       restartButton.style.display = "block";
+      keys.right.pressed = false;
     }
     
     else{
@@ -276,6 +277,7 @@ function init() {
   scrollOffset = 0;
 }
 // score handling
+// score handling
 
 let score = 0;
 // let highScore = 0;
@@ -295,6 +297,9 @@ c.fillText("score:"+ score, canvas.width-105, 20 )
 }
 
 }
+  
+
+
 // pause play handling
 
 // drawScore();
@@ -315,7 +320,6 @@ function animate() {
   });
   
   player.update();
-
 
   
       if(keys.pause.pressed){
@@ -450,6 +454,7 @@ function animate() {
 
   drawScore();
 
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   function winCelebration() {
@@ -537,7 +542,7 @@ function animate() {
 
 
   ////////////////////win condition
-  if (scrollOffset >  platformImage.width * 10 + 1150 -2) {
+  if (scrollOffset >  platformImage.width * 10 + 1050 -2) {
     winCelebration();
 
   }
@@ -587,7 +592,7 @@ addEventListener("keydown", ({ keyCode }) => {
     case 80:
       console.log("play");
       keys.play.pressed = true;
-   
+    //  play();
       break;
   }
 });

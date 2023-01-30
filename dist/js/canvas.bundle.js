@@ -286,8 +286,9 @@ var Player = /*#__PURE__*/function () {
       this.position.y += this.velocity.y;
       if (this.position.y + this.height + this.velocity.y <= canvas.height) this.velocity.y += gravity;
 
-      if (scrollOffset > platformImage.width * 10 + 1150 - 2) {
+      if (scrollOffset > platformImage.width * 10 + 1050 - 2) {
         restartButton.style.display = "block";
+        keys.right.pressed = false;
       } else {
         restartButton.style.display = "none"; // score()
       }
@@ -458,6 +459,7 @@ function init() {
   })];
   scrollOffset = 0;
 } // score handling
+// score handling
 
 
 var score = 0; // let highScore = 0;
@@ -670,7 +672,7 @@ function animate() {
   } ////////////////////win condition
 
 
-  if (scrollOffset > platformImage.width * 10 + 1150 - 2) {
+  if (scrollOffset > platformImage.width * 10 + 1050 - 2) {
     winCelebration();
   }
 
@@ -722,7 +724,8 @@ addEventListener("keydown", function (_ref3) {
 
     case 80:
       console.log("play");
-      keys.play.pressed = true;
+      keys.play.pressed = true; //  play();
+
       break;
   }
 });
