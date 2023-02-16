@@ -589,7 +589,7 @@ addEventListener("keydown", ({ keyCode }) => {
       keys.pause.pressed = true;
     //  pause();
       break;
-    case 80:
+    case 82:
       console.log("play");
       keys.play.pressed = true;
     //  play();
@@ -621,7 +621,7 @@ addEventListener("keyup", ({ keyCode }) => {
       // player.velocity.x === 0;
 
       break;
-    case 80:
+    case 82:
       console.log("play");
       keys.play.pressed = false;
     //  play();

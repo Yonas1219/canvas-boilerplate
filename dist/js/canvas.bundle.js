@@ -722,7 +722,7 @@ addEventListener("keydown", function (_ref3) {
 
       break;
 
-    case 80:
+    case 82:
       console.log("play");
       keys.play.pressed = true; //  play();
 
@@ -758,7 +758,7 @@ addEventListener("keyup", function (_ref4) {
 
       break;
 
-    case 80:
+    case 82:
       console.log("play");
       keys.play.pressed = false; //  play();
 
