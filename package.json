@@ -1,5 +1,5 @@
 {
-  "name": "canvas-template",
+  "name": "2d Game",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",

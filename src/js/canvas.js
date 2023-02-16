@@ -7,8 +7,7 @@ import spriteRunLeft from "../image/spriteRunLeft.png";
 import spriteRunRight from "../image/spriteRunRight.png";
 import spriteStandLeft from "../image/spriteStandLeft.png";
 import spriteStandRight from "../image/spriteStandRight.png";
-// import win from '../audio/win.wav';
-// import coinimage from '../image/coin.jpeg';
+// import win from '../dist/win.wav';
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
@@ -16,12 +15,12 @@ canvas.width = 1024;
 canvas.height = 576;
 
 const gravity = 1.5;
-// let gameWon = false;
-// let soundEffect = document.getElementById("sound_effect");
-// var scorebtn = document.getElementById("score");
-// var scoreBtn = document.getElementById("score_btn");
+
 var restartButton = document.getElementById("restart-button");
-// var winSound = new Audio(win.wav);
+var guide = document.getElementById("guide");
+
+
+//////////////////////////////  player creation 
 class Player {
   
   constructor() {
@@ -102,7 +101,13 @@ class Player {
     }
 }
 }
+
+
+//////////////////////////////  player creation ends 
+
   // reset the game
+
+  let gameWon = false;
   restartButton.addEventListener("click", function () {
     // reset game state
     gameWon = false;
@@ -277,10 +282,24 @@ function init() {
   scrollOffset = 0;
 }
 // score handling
-// score handling
 
 let score = 0;
-// let highScore = 0;
+// let highScore = localStorage.getItem("highScore") || 0;
+
+
+// function updateScore(value){
+//   score += value;
+//   drawScore();
+
+//   if(score > highScore){
+//     highScore = score;
+//     localStorage.setItem("highScore", highScore);
+//     console.log("highScore");
+//   }
+//   c.fillStyle = "white";
+//   c.font = "20px Verdana";
+//   c.fillText("highScore:"+ highScore, canvas.width-150, 50 )
+// }
 function drawScore(){
 if(player.velocity.y !== 0 && keys.right.pressed){
   score += 1;
@@ -293,13 +312,31 @@ else{
 c.fillStyle = "white";
 c.font = "20px Verdana";
 c.fillText("score:"+ score, canvas.width-105, 20 )
+// c.fillText("HighScore:"+ highScore, canvas.width-150, 50 )
 
 }
 
 }
+  /// motivation 
+  function motivation(){
+    if(scrollOffset >  platformImage.width * 5 + 500 -2){
+    c.fillStyle = "white";
+    c.font = "20px Verdana";
+    c.fillText("Keep Going...", 200, 200 );
+    console.log("motivation");
+  }
+  }
   
 
+  function audios(){
+    win.play();
+  }
 
+
+// hide the guide
+setTimeout(function () {
+  guide.style.visibility = "hidden";
+}, 8000);
 // pause play handling
 
 // drawScore();
@@ -313,8 +350,6 @@ function animate() {
     genericObjects.draw();
   });
   
-  
-  
   platforms.forEach((platform) => {
     platform.draw();
   });
@@ -324,6 +359,7 @@ function animate() {
   
       if(keys.pause.pressed){
         player.velocity.x = 0;
+        player.velocity.y = 2;
         c.fillStyle = "white";
         c.font = "20px Verdana";
         c.fillText("paused", canvas.width-105, 100 )
@@ -453,17 +489,16 @@ function animate() {
   }
 
   drawScore();
-
+  // updateScore();
+  motivation();
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   function winCelebration() {
     // Stop the game loop
-    // winSound.play();
+
     cancelAnimationFrame(animate);
-
-    // Play a victory jingle
-
+    
     // Show a "win" animation on player
     player.image = player.sprites.stand.right;
     player.currentCropWidth = 177;
@@ -544,7 +579,7 @@ function animate() {
   ////////////////////win condition
   if (scrollOffset >  platformImage.width * 10 + 1050 -2) {
     winCelebration();
-
+    
   }
   
   if (player.position.y > canvas.height) {
@@ -589,7 +624,7 @@ addEventListener("keydown", ({ keyCode }) => {
       keys.pause.pressed = true;
     //  pause();
       break;
-    case 82:
+    case 80:
       console.log("play");
       keys.play.pressed = true;
     //  play();
@@ -621,7 +656,7 @@ addEventListener("keyup", ({ keyCode }) => {
       // player.velocity.x === 0;
 
       break;
-    case 82:
+    case 80:
       console.log("play");
       keys.play.pressed = false;
     //  play();

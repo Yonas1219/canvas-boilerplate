@@ -220,19 +220,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
- // import win from '../audio/win.wav';
-// import coinimage from '../image/coin.jpeg';
+ // import win from '../dist/win.wav';
 
 var canvas = document.querySelector("canvas");
 var c = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
-var gravity = 1.5; // let gameWon = false;
-// let soundEffect = document.getElementById("sound_effect");
-// var scorebtn = document.getElementById("score");
-// var scoreBtn = document.getElementById("score_btn");
-
-var restartButton = document.getElementById("restart-button"); // var winSound = new Audio(win.wav);
+var gravity = 1.5;
+var restartButton = document.getElementById("restart-button");
+var guide = document.getElementById("guide"); //////////////////////////////  player creation 
 
 var Player = /*#__PURE__*/function () {
   function Player() {
@@ -296,9 +292,11 @@ var Player = /*#__PURE__*/function () {
   }]);
 
   return Player;
-}(); // reset the game
+}(); //////////////////////////////  player creation ends 
+// reset the game
 
 
+var gameWon = false;
 restartButton.addEventListener("click", function () {
   // reset game state
   gameWon = false;
@@ -459,10 +457,21 @@ function init() {
   })];
   scrollOffset = 0;
 } // score handling
-// score handling
 
 
-var score = 0; // let highScore = 0;
+var score = 0; // let highScore = localStorage.getItem("highScore") || 0;
+// function updateScore(value){
+//   score += value;
+//   drawScore();
+//   if(score > highScore){
+//     highScore = score;
+//     localStorage.setItem("highScore", highScore);
+//     console.log("highScore");
+//   }
+//   c.fillStyle = "white";
+//   c.font = "20px Verdana";
+//   c.fillText("highScore:"+ highScore, canvas.width-150, 50 )
+// }
 
 function drawScore() {
   if (player.velocity.y !== 0 && keys.right.pressed) {
@@ -474,11 +483,29 @@ function drawScore() {
   } else {
     c.fillStyle = "white";
     c.font = "20px Verdana";
-    c.fillText("score:" + score, canvas.width - 105, 20);
+    c.fillText("score:" + score, canvas.width - 105, 20); // c.fillText("HighScore:"+ highScore, canvas.width-150, 50 )
   }
-} // pause play handling
-// drawScore();
+} /// motivation 
 
+
+function motivation() {
+  if (scrollOffset > platformImage.width * 5 + 500 - 2) {
+    c.fillStyle = "white";
+    c.font = "20px Verdana";
+    c.fillText("Keep Going...", 200, 200);
+    console.log("motivation");
+  }
+}
+
+function audios() {
+  win.play();
+} // hide the guide
+
+
+setTimeout(function () {
+  guide.style.visibility = "hidden";
+}, 8000); // pause play handling
+// drawScore();
 
 function animate() {
   requestAnimationFrame(animate);
@@ -494,6 +521,7 @@ function animate() {
 
   if (keys.pause.pressed) {
     player.velocity.x = 0;
+    player.velocity.y = 2;
     c.fillStyle = "white";
     c.font = "20px Verdana";
     c.fillText("paused", canvas.width - 105, 100);
@@ -584,13 +612,13 @@ function animate() {
     player.width = player.sprites.stand.width;
   }
 
-  drawScore(); /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  drawScore(); // updateScore();
+
+  motivation(); /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   function winCelebration() {
     // Stop the game loop
-    // winSound.play();
-    cancelAnimationFrame(animate); // Play a victory jingle
-    // Show a "win" animation on player
+    cancelAnimationFrame(animate); // Show a "win" animation on player
 
     player.image = player.sprites.stand.right;
     player.currentCropWidth = 177;
@@ -722,7 +750,7 @@ addEventListener("keydown", function (_ref3) {
 
       break;
 
-    case 82:
+    case 80:
       console.log("play");
       keys.play.pressed = true; //  play();
 
@@ -758,7 +786,7 @@ addEventListener("keyup", function (_ref4) {
 
       break;
 
-    case 82:
+    case 80:
       console.log("play");
       keys.play.pressed = false; //  play();
 
