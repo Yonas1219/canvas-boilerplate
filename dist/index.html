@@ -6,51 +6,51 @@
     <title>mario game</title>
 
     <style>
-      body {
-        margin: 0;
-        padding: 20px;
-        background-color: #307c73;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-      #guide {
-        /* visibility: hidden; */
-        display: inline-block;
-        width: 190px;
-        text-align: left;
-        font-size: 24px;
-        padding: 30px;
-        background-color: #2c6a64;
-        margin: 15px;
-        vertical-align: top;
-        border-radius: 18px;
-        box-shadow: rgb(158, 39, 39);
-      }
-      .hide{
-        visibility: hidden;
-      }
-      #canvas {
-        float: right;
-        width: 70%;
-        
-      }
-      p{
+    
+    body{
+      margin: 0;
+      padding: 20px;
+      background-color: #307c73;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #guide {
+      /* visibility: hidden; */
+      display: inline-block;
+      width: 190px;
       text-align: left;
-      text-indent: 10px;
-      }
-      #restart-button {
-        display:flex;
-        align-items: center;
-        display: center;
-        width: 100px;
-        text-align: center;
-        font-size: 20px;
-        background-color: white;
-        margin: 15px;
-        border-radius: 18px;
-      }
+      font-size: 24px;
+      padding: 30px;
+      background-color: #2c6a64;
+      margin: 15px;
+      vertical-align: top;
+      border-radius: 18px;
+      box-shadow: rgb(158, 39, 39);
+    }
+    .hide{
+      visibility: hidden;
+    }
+    #canvas {
+      float: right;
+      width: 70%;
+    }
+    p{
+    text-align: left;
+    text-indent: 10px;
+    }
+    #restart-button {
+      display:flex;
+      align-items: center;
+      display: center;
+      width: 100px;
+      text-align: center;
+      font-size: 20px;
+      background-color: white;
+      margin: 15px;
+      border-radius: 18px;
+    }
     </style>
   <link rel="shortcut icon" href="favicon.ico"></head>
   <body id="body">
@@ -70,13 +70,7 @@
       </canvas>
       <button id="restart-button" onclick="location.reload()">Play Again</button>
     </div>
-    
-    <!-- <div id="restart">
-    </div> -->
-    <audio id="win" src="../src/audio/win.wav"  autoplay ></audio>
-  
-  
-
-        <script src="./js/main.js"></script>
+   
+    <script src="./js/main.js"></script>
   <script src="./js/canvas.bundle.js"></script></body>
 </html>

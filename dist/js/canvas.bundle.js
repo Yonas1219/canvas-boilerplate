@@ -286,7 +286,7 @@ var Player = /*#__PURE__*/function () {
         restartButton.style.display = "block";
         keys.right.pressed = false;
       } else {
-        restartButton.style.display = "none"; // score()
+        restartButton.style.display = "none";
       }
     }
   }]);
@@ -669,6 +669,9 @@ function animate() {
           c.fillStyle = "white";
           c.font = "40px Arial";
           c.fillText("you win! score is ".concat(score), 300, 300);
+          c.fillStyle = "white";
+          c.font = "20px Verdana";
+          c.fillText("highScore is ".concat(highScore), canvas.width - 150, 50);
         }
       }, {
         key: "update",
@@ -707,6 +710,7 @@ function animate() {
   if (player.position.y > canvas.height) {
     score = 0;
     setTimeout(function () {
+      var interval = 0;
       clearInterval(interval);
       c.clearRect(0, 0, canvas.width, canvas.height);
     }, 3000);
